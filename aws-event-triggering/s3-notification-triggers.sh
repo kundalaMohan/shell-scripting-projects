@@ -16,7 +16,7 @@ role_name="shell-11"
 email_address="mohannageswar042@gmail.com"
 
 # Create IAM Role for the project
-role_response=$(aws iam create-role --role-name s3-lambda-sns --assume-role-policy-document '{
+role_response=$(aws iam create-role --role-name shell-11 --assume-role-policy-document '{
   "Version": "2012-10-17",
   "Statement": [{
     "Action": "sts:AssumeRole",
@@ -74,7 +74,7 @@ aws lambda add-permission \
   --source-arn "arn:aws:s3:::$bucket_name"
 
 # Create an S3 event trigger for the Lambda function
-LambdaFunctionArn="arn:aws:lambda:us-east-1:$aws_account_id:function:s3-lambda-function"
+LambdaFunctionArn="arn:aws:lambda:ap-south-1:$aws_account_id:function:s3-lambda-function"
 aws s3api put-bucket-notification-configuration \
   --region "$aws_region" \
   --bucket "$bucket_name" \
@@ -86,7 +86,7 @@ aws s3api put-bucket-notification-configuration \
 }'
 
 # Create an SNS topic and save the topic ARN to a variable
-topic_arn=$(aws sns create-topic --name s3-lambda-sns --output json | jq -r '.TopicArn')
+topic_arn=$(aws sns create-topic --name shell-11 --output json | jq -r '.TopicArn')
 
 # Print the TopicArn
 echo "SNS Topic ARN: $topic_arn"
